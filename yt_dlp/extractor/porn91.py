@@ -65,6 +65,7 @@ class Porn91IE(InfoExtractor):
             r'src=["\']([^"\']+)["\']', urllib.parse.unquote(video_link_url), 'unquoted video link')
 
         formats, subtitles = self._get_formats_and_subtitle(video_link_url, video_id)
+        thumbnail = self._search_regex(r'poster="([^"]*)"',webpage,'thumbnail', fatal = False)
 
         return {
             'id': video_id,
@@ -82,6 +83,7 @@ class Porn91IE(InfoExtractor):
             'view_count': int_or_none(self._search_regex(
                 r'热度:\s*<span[^>]*>\s*(\d+)\s*</span>', webpage, 'view count', fatal=False)),
             'age_limit': 18,
+            'thumbnail' : thumbnail,
         }
 
     def _get_formats_and_subtitle(self, video_link_url, video_id):
